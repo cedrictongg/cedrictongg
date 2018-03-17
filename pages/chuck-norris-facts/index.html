@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>Homework 3</title>
+		<style>
+			[v-cloak] {
+				display: none;
+			},
+			span {
+				background: yellow;
+			}
+		</style>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<body class='container'>
+		<div id='app' v-cloak>
+			<h1>{{appName}}</h1>
+			<select class='dropdown' v-model='selected'>
+				<option class='dropdown-item' value=''>Any</option>
+				<option class='dropdown-item' v-for='choices in categories' :key='choices.type'>{{choices.value}}</option>
+			</select>
+			<div v-if='selected'>
+				<button v-on:click='categorySearch'>Click here to get your random {{selected}} fact!</button>
+			</div>
+			<div v-else>
+				<button v-on:click='getFact'>Click here to get a random fact!</button>
+			</div>
+			<h3>Here is your fact: {{fact}}</h3>
+			<p v-if='history.length'>Previous Facts</p>
+			<ol>
+				<li v-for='fact in history'>{{fact}}</li>
+			</ol>
+			<div>
+				<input placeholder='Search for facts here' v-model='search'></input>
+				<button v-on:click='searching'>Click here to get your {{search}} fact!</button>
+				<h3>Here are all the facts related to {{search}}:</h3>
+				<ol>
+					<li v-for='searches in search_return' :key='searches.key'>
+						<div v-html='highlight(searches.value)'></div>
+					</li>
+				</ol>
+			</div>
+		</div>
+
+		<script type='text/javascript' src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script type='text/javascript' src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script type='text/javascript' src="./app.js"></script>
+
+	</body>
+</html>
